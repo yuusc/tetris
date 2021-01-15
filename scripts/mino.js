@@ -78,6 +78,6 @@ function* randomGenerator() {
         }
         id = bag[0];
         bag.shift();
-        yeild id;
+        yeild id;//なぜ？
     }
 }

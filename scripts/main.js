@@ -129,3 +129,5 @@ document.body.onkeydown = function(e) {
   }
   render();
 }
+
+//キーの変更！

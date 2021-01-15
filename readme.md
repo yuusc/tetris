@@ -5,7 +5,7 @@
 # For Contributor
 
 初回のみ
-![ss](https://user-images.githubusercontent.com/68335858/104705617-787d8880-575d-11eb-8b32-044f2f28027e.png)
+![ss](https://user-images.githubusercontent.com/68335858/104706501-85e74280-575e-11eb-86e8-2fdd4a32d46b.png)
 画像の通りにしてください．
 
 # DEMO

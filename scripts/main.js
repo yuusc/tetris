@@ -6,7 +6,7 @@ var ctx = canvas.getContext("2d");
 var current_mino;
 var current_x = 3, current_y = 0;
 var field = [];
- 
+
 for (var y = 0; y < rows; y++) {
   field[y] = [];
   for (var x = 0; x < cols; x++) {
@@ -14,10 +14,19 @@ for (var y = 0; y < rows; y++) {
   }
 }
  
+var highscore = 0;
+highscore = getCookieValue('highscore');
 current_mino = newMino();
 render();
+var score = 0;
+var clearlinenum = 0;
 setInterval(tick, 500);
- 
+
+function getCookieValue(a) {
+  var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
+}
+
 function render() {
   ctx.clearRect(0, 0, fieldw, fieldh);
   ctx.strokeStyle = "black";
@@ -51,6 +60,7 @@ function tick() {
     current_mino = newMino();
     current_x = 3;
     current_y = 0;
+    console.log("clearlinenum"+clearlinenum);
   }
   render();
 }
@@ -99,6 +109,8 @@ function clearrows() {
           field[v + 1][x] = field[v][x];
         }
       }
+      clearlinenum++;
+      score = clearlinenum*10;
       y++;
     }
   }
@@ -149,11 +161,19 @@ for (var y = 1;y>=0;y--){
   }
 }
 if (!nfill){  //gameover
-  alert("gameover");
   result();
+  alert("gameover");
+  
 }
 }
 
 function result(){
-
+  if (score>=highscore){
+    document.cookie = "highscore = "+score+"; max-age = 15552000; secure";
+    console.log("new record: "+score);
+  }else{
+    document.cookie = "highscore = "+highscore+"; max-age = 15552000; secure";
+    console.log("score: "+score);
+  }
+  console.log(getCookieValue('highscore'));
 }

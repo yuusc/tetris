@@ -47,6 +47,7 @@ function tick() {
   } else {
     fix();
     clearrows();
+    gameover();
     current_mino = newMino();
     current_x = 3;
     current_y = 0;
@@ -120,14 +121,39 @@ document.body.onkeydown = function(e) {
         current_y++;
       }
       break;
-    case 38:
-      rotated = rotate(current_mino);
+    case 65:
+      rotated = lrotate(current_mino);
       if (canMove(0, 0, rotated)) {
         current_mino = rotated;
+        console.log("l rotated");
+      }
+      break;
+      case 68:
+      rotated = rrotate(current_mino);
+      if (canMove(0, 0, rotated)) {
+        current_mino = rotated;
+        console.log("r rotated");
       }
       break;
   }
   render();
 }
 
-//キーの変更！
+function gameover(){
+for (var y = 1;y>=0;y--){
+  var nfill = true;
+  for (var x = 3;x<=6;x++){
+    if (field[y][x] != 0)
+    nfill = false;
+    break;
+  }
+}
+if (!nfill){  //gameover
+  alert("gameover");
+  result();
+}
+}
+
+function result(){
+
+}

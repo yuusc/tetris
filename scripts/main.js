@@ -15,7 +15,7 @@ for (var y = 0; y < rows; y++) {
     field[y][x] = 0;
   }
 }
- 
+
 var highscore = 0;
 highscore = getCookieValue('highscore');
 current_mino = newMino();
@@ -26,12 +26,12 @@ var showscore = document.getElementById('showscore');
 var showhighscore = document.getElementById('showhighscore');
 startgame();
 
-function startgame(){
-showscore.innerHTML=`<div id ="showscore">score: ${score}</div>`;
-showhighscore.innerHTML=`<div id ="showhighscore">highscore: ${highscore}</div>`;
-play = setInterval(tick, 500);
+function startgame() {
+  showscore.innerHTML = `<div id ="showscore">score: ${score}</div>`;
+  showhighscore.innerHTML = `<div id ="showhighscore">highscore: ${highscore}</div>`;
+  play = setInterval(tick, 500);
 }
-function stopgame(){
+function stopgame() {
   clearInterval(play);
 }
 
@@ -54,7 +54,7 @@ function render() {
     }
   }
 }
- 
+
 function drawBlock(x, y, block) {
   if (block) {
     ctx.fillStyle = COLORS[block - 1];
@@ -62,7 +62,7 @@ function drawBlock(x, y, block) {
     ctx.strokeRect(x * blockw, y * blockh, blockw - 1, blockh - 1);
   }
 }
- 
+
 function tick() {
   if (canMove(0, 1)) {
     current_y++;
@@ -73,23 +73,23 @@ function tick() {
     current_mino = newMino();
     current_x = 3;
     current_y = 0;
-    console.log("clearlinenum"+clearlinenum);
+    console.log("clearlinenum" + clearlinenum);
   }
   render();
-  showscore.innerHTML=`<div id ="showscore">score: ${score}</div>`;
-  showhighscore.innerHTML=`<div id ="showhighscore">highscore: ${highscore}</div>`;
+  showscore.innerHTML = `<div id ="showscore">score: ${score}</div>`;
+  showhighscore.innerHTML = `<div id ="showhighscore">highscore: ${highscore}</div>`;
 }
- 
+
 function fix() {
   for (var y = 0; y < 4; ++y) {
     for (var x = 0; x < 4; ++x) {
       if (current_mino[y][x]) {
-        field[current_y + y][current_x  + x] = current_mino[y][x];
+        field[current_y + y][current_x + x] = current_mino[y][x];
       }
     }
   }
 }
- 
+
 function canMove(move_x, move_y, move_mino) {
   var next_x = current_x + move_x;
   var next_y = current_y + move_y;
@@ -98,9 +98,9 @@ function canMove(move_x, move_y, move_mino) {
     for (var x = 0; x < 4; x++) {
       if (next_mino[y][x]) {
         if (next_y + y >= rows
-              || next_x + x < 0
-              || next_x + x >= cols
-              || field[next_y + y][next_x + x]) {
+          || next_x + x < 0
+          || next_x + x >= cols
+          || field[next_y + y][next_x + x]) {
           return false;
         }
       }
@@ -108,9 +108,9 @@ function canMove(move_x, move_y, move_mino) {
   }
   return true;
 }
- 
+
 function clearrows() {
-  for (var y = rows - 1; y >=0; y--) {
+  for (var y = rows - 1; y >= 0; y--) {
     var fill = true;
     for (var x = 0; x < cols; x++) {
       if (field[y][x] == 0) {
@@ -125,13 +125,13 @@ function clearrows() {
         }
       }
       clearlinenum++;
-      score = clearlinenum*10;
+      score = clearlinenum * 10;
       y++;
     }
   }
 }
- 
-document.body.onkeydown = function(e) {
+
+document.body.onkeydown = function (e) {
   switch (e.keyCode) {
     case 37:
       if (canMove(-1, 0)) {
@@ -155,7 +155,7 @@ document.body.onkeydown = function(e) {
         console.log("l rotated");
       }
       break;
-      case 68:
+    case 68:
       rotated = rrotate(current_mino);
       if (canMove(0, 0, rotated)) {
         current_mino = rotated;
@@ -166,34 +166,31 @@ document.body.onkeydown = function(e) {
   render();
 }
 
-function gameover(){
-for (var y = 1;y>=0;y--){
-  var nfill = true;
-  for (var x = 3;x<=6;x++){
-    if (field[y][x] != 0)
-    nfill = false;
-    break;
+function gameover() {
+  for (var y = 1; y >= 0; y--) {
+    var nfill = true;
+    for (var x = 3; x <= 6; x++) {
+      if (field[y][x] != 0)
+        nfill = false;
+      break;
+    }
+  }
+
+  if (!nfill) {  //gameover
+    stopgame();
+    result();
   }
 }
 
-function result(){
-alert("score: "+score);
-location.reload();
-}
-
-if (!nfill){  //gameover
-  stopgame();
-  result();
-}
-}
-
-function result(){
-  if (score>=highscore){
-    document.cookie = "highscore = "+score+"; max-age = 15552000; secure";
-    console.log("new record: "+score);
-  }else{
-    document.cookie = "highscore = "+highscore+"; max-age = 15552000; secure";
-    console.log("score: "+score);
+function result() {
+  if (score >= highscore) {
+    document.cookie = "highscore = " + score + "; max-age = 15552000; secure";
+    console.log("new record: " + score);
+  } else {
+    document.cookie = "highscore = " + highscore + "; max-age = 15552000; secure";
+    console.log("score: " + score);
   }
   console.log(getCookieValue('highscore'));
+  alert("score: " + score);
+  location.reload();
 }

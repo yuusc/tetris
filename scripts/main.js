@@ -182,8 +182,6 @@ location.reload();
 }
 
 if (!nfill){  //gameover
-  result();
-  
   stopgame();
   result();
 }

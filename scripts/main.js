@@ -6,6 +6,8 @@ var ctx = canvas.getContext("2d");
 var current_mino;
 var current_x = 3, current_y = 0;
 var field = [];
+var status = "start";
+var play;
 
 for (var y = 0; y < rows; y++) {
   field[y] = [];
@@ -20,7 +22,18 @@ current_mino = newMino();
 render();
 var score = 0;
 var clearlinenum = 0;
-setInterval(tick, 500);
+var showscore = document.getElementById('showscore');
+var showhighscore = document.getElementById('showhighscore');
+startgame();
+
+function startgame(){
+showscore.innerHTML=`<div id ="showscore">score: ${score}</div>`;
+showhighscore.innerHTML=`<div id ="showhighscore">highscore: ${highscore}</div>`;
+play = setInterval(tick, 500);
+}
+function stopgame(){
+  clearInterval(play);
+}
 
 function getCookieValue(a) {
   var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
@@ -63,6 +76,8 @@ function tick() {
     console.log("clearlinenum"+clearlinenum);
   }
   render();
+  showscore.innerHTML=`<div id ="showscore">score: ${score}</div>`;
+  showhighscore.innerHTML=`<div id ="showhighscore">highscore: ${highscore}</div>`;
 }
  
 function fix() {
@@ -160,10 +175,17 @@ for (var y = 1;y>=0;y--){
     break;
   }
 }
+
+function result(){
+alert("score: "+score);
+location.reload();
+}
+
 if (!nfill){  //gameover
   result();
-  alert("gameover");
   
+  stopgame();
+  result();
 }
 }
 

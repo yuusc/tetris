@@ -8,6 +8,10 @@ var current_x = 3, current_y = 0;
 var field = [];
 var status = "start";
 var play;
+var level = 1;
+var canlevelup = true;
+var leveluptf = false;
+var interval = true;
 
 for (var y = 0; y < rows; y++) {
   field[y] = [];
@@ -24,12 +28,15 @@ var score = 0;
 var clearlinenum = 0;
 var showscore = document.getElementById('showscore');
 var showhighscore = document.getElementById('showhighscore');
+var showlevel = document.getElementById('showlevel');
+var speed = 500-level*20;
 startgame();
 
 function startgame() {
   showscore.innerHTML = `<div id ="showscore">score: ${score}</div>`;
   showhighscore.innerHTML = `<div id ="showhighscore">highscore: ${highscore}</div>`;
-  play = setInterval(tick, 500);
+  showlevel.innerHTML = `<div id ="showlevel">level: ${level}</div>`;
+  play = setInterval(tick, speed);
 }
 function stopgame() {
   clearInterval(play);
@@ -74,10 +81,22 @@ function tick() {
     current_x = 3;
     current_y = 0;
     console.log("clearlinenum" + clearlinenum);
+    if (score != 0){
+      level = 1+Math.floor(clearlinenum/3);
+      if (level<25){
+        speed = 500-level*20;
+      }else{
+        speed = 10
+      }
+    }
+    showscore.innerHTML = `<div id ="showscore">score: ${score}</div>`;
+  showhighscore.innerHTML = `<div id ="showhighscore">highscore: ${highscore}</div>`;
+  showlevel.innerHTML = `<div id ="showlevel">level: ${level}</div>`;
   }
   render();
-  showscore.innerHTML = `<div id ="showscore">score: ${score}</div>`;
-  showhighscore.innerHTML = `<div id ="showhighscore">highscore: ${highscore}</div>`;
+  clearInterval(play);
+  console.log("speed: "+speed);
+  play = setInterval(tick,speed);
 }
 
 function fix() {
@@ -165,6 +184,7 @@ document.body.onkeydown = function (e) {
   }
   render();
 }
+
 
 function gameover() {
   for (var y = 1; y >= 0; y--) {

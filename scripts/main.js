@@ -184,13 +184,15 @@ function gameover() {
 
 function result() {
   if (score >= highscore) {
-    document.cookie = "highscore = " + score + "; max-age = 15552000; secure";
+    document.cookie = `highscore = ${score}; max-age = 15552000; secure`;
     console.log("new record: " + score);
   } else {
-    document.cookie = "highscore = " + highscore + "; max-age = 15552000; secure";
+    document.cookie = `highscore = ${highscore}; max-age = 15552000; secure`;
     console.log("score: " + score);
   }
   console.log(getCookieValue('highscore'));
   alert("score: " + score);
   location.reload();
 }
+
+`highscore = ${score}; max-age = 15552000; secure`

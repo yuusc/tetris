@@ -38,7 +38,7 @@ var leveluptf = false;
 var interval = true;
 var SEfix, SEclearrow, SEmove,SErotate,SElevelup,SEgameover;
 var lastlv=1;
-var highscore = 0;
+var highscore;
 var speed = 500;
 var score = 0;
 var clearlinenum = 0;
@@ -63,8 +63,6 @@ for (var y = 0; y < nrows; y++) {
     nextarea[y][x] = 0;
   }
 }
-
-
 
 if (typeOf.call(getCookieValue('highscore')) == "number") {
   highscore = getCookieValue('highscore');

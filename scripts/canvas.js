@@ -10,9 +10,12 @@ var darkcanvas;
 var darkctx;
 var btncanvas;
 var btnctx;
+var smpcanvas;
+var smpctx;
 var x = 0;
 var y = 0;
-
+var bx = 0;
+var by = 0;
 
 
 function init() {
@@ -36,6 +39,13 @@ function init() {
     btncanvas.style.top = "10px";
     btncanvas.style.zIndex = 5;
     btnctx = btncanvas.getContext("2d");
+
+    smpcanvas = document.getElementById("smartphone");
+    smpcanvas.style.position = "absolute";
+    smpcanvas.style.left = "10px";
+    smpcanvas.style.top = "680px";
+    smpcanvas.style.zIndex = 5;
+    smpctx = smpcanvas.getContext("2d");
     draw();
 }
 
@@ -75,6 +85,7 @@ function onClick(e){
 }
 
 function pressstart(){
+    smpui();
     if (nowplaying == 1){
     if (x>=450 && x<=750 && y>=200 && y<= 260){
         firstspeed = 750;
@@ -112,4 +123,68 @@ function count(){
     darkctx.clearRect(0,0,darkcanvas.width,darkcanvas.height);
     setTimeout(document.getElementById("bgm").play(),6000);
     setup();
+}
+
+function smpui(){
+    smpctx.fillStyle = "rgba(" + [255, 255, 255, 0.9] + ")";
+    smpctx.fillRect(320,25,100,100);
+    smpctx.fillRect(450, 25, 100, 100);
+    smpctx.fillRect(560, 25, 100, 100);
+    smpctx.fillRect(670,25,100,100);
+    smpctx.fillRect(800,25,100,100);
+    smpctx.font = '30pt Arial';
+    smpctx.fillStyle = "black";
+    smpctx.fillText("⟲", 350, 95);
+    smpctx.fillText("◀", 480, 95);
+    smpctx.fillText("▼", 590, 95);
+    smpctx.fillText("▶", 700, 95);
+    smpctx.fillText("⟳", 830, 95);
+    smpcanvas.addEventListener('click', onClickbutton,false);
+}
+function onClickbutton(be){
+    var brect = be.target.getBoundingClientRect();
+    bx = be.clientX - brect.left;
+    by = be.clientY - brect.top;
+    clickbutton();
+}
+
+function clickbutton(){
+    console.log(bx+""+by);
+    if (nowplaying == 2){
+    if(bx>=320 && bx<=420 && by>=25 && by<= 125){
+      console.log("button1");
+        rotated = lrotate(current_mino);
+      if (canMove(0, 0, rotated)) {
+        current_mino = rotated;
+        PlaySErotate();
+        console.log("l rotated");
+      }
+    }else if(bx>=450 && bx<=550 && by>=25 && by<= 125){
+      console.log("button2");
+        if (canMove(-1, 0)) {
+        current_x--;
+        PlaySEmove();
+      }
+    }else if(bx>=560 && bx<=660 && by>=25 && by<= 125){
+      console.log("button3");
+        if (canMove(-1, 0)) {
+        current_y++;
+        PlaySEmove();
+      }
+    }else if(bx>=670 && bx<=770 && by>=25 && by<= 125){
+      console.log("button4");
+        if (canMove(-1, 0)) {
+        current_x++;
+        PlaySEmove();
+      }
+    }else if(bx>=800 && bx<=900 && by>=25 && by<= 125){
+      console.log("button5");
+        rotated = rrotate(current_mino);
+      if (canMove(0, 0, rotated)) {
+        current_mino = rotated;
+        PlaySErotate();
+        console.log("r rotated");
+      }
+    }else{}
+}
 }

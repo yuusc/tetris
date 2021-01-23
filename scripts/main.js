@@ -47,6 +47,7 @@ var showhighscore = document.getElementById('showhighscore');
 var showlevel = document.getElementById('showlevel');
 var nowplaying = 1;
 var newrecord = 0;
+var nfill=true;
 
 
 function setup(){
@@ -214,6 +215,9 @@ function tick() {
     displayscore();
   }
   render();
+  if (!nfill){
+    nowplaying++;
+  }
   clearInterval(play);
   console.log("speed: " + speed);
   startgame();
@@ -316,7 +320,7 @@ document.body.onkeydown = function (e) {
 
 function gameover() {
   for (var y = 1; y >= 0; y--) {
-    var nfill = true;
+    nfill = true;
     for (var x = 3; x <= 6; x++) {
       if (field[y][x] != 0)
         nfill = false;
@@ -332,7 +336,7 @@ function gameover() {
 }
 
 function result() {
-  nowplaying++;
+  //nowplaying=3;
   document.getElementById("bgm").pause();
   document.getElementById("result").play()
   clearInterval(play);
@@ -375,3 +379,4 @@ function restart(){
     }else{}
 }
 }
+

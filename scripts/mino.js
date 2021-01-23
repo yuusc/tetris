@@ -80,8 +80,28 @@ function newMino() {
             }
         }
     }
+    
     //console(mino);
     return mino;
+}
+function newnextmino(){
+    console.log("newnextmino "+nextid);
+    var nextmino = [];
+    for (var y = 0; y < 4; y++) {
+        nextmino[y] = [];
+        for (var x = 0; x < 4; x++) {
+            nextmino[y][x] = 0;
+            //console.log(MINOS[id][y]);
+            if (MINOS[nextid][y]) {
+                //console.log(MINOS[id][y][x]);
+                if (MINOS[nextid][y][x]) {
+                    nextmino[y][x] = nextid + 1;
+                }
+            }
+        }
+    }
+    console.log(nextmino);
+    return nextmino;
 }
 
 function lrotate(mino) {

@@ -6,32 +6,49 @@
   <title>Tetris</title>
   <style type="text/css">
     #field {
-      border: solid 1px #000000;
+      border: solid 2px #ffffff;
       background-image:
         repeating-linear-gradient(90deg,
-          rgba(0, 0, 0, 0.301),
-          rgba(0, 0, 0, 0.301)0 1px,
+          rgba(255, 255, 255,0.6),
+          rgba(255, 255, 255,0.6)0 1px,
           transparent 1px,
           transparent 30px),
         repeating-linear-gradient(0deg,
-          rgba(0, 0, 0, 0.301),
-          rgba(0, 0, 0, 0.301)0 1px,
-          #fff 1px,
-          #fff 30px);
+          rgba(255, 255, 255,0.6),
+          rgba(255, 255, 255,0.6)0 1px,
+          #000 1px,
+          #000 30px);
     }
+    #next{
+      border: solid 2px #ffffff;
+      background-color: black;
+    }
+    #score{
+      border: solid 2px #ffffff;
+      background-color: black;
+    }
+
   </style>
   <audio preload="auto" autoplay loop>
-    <source src="bgm.mp3">
-    <source src="bgm.ogg">
+    <source src="./sounds/bgm.mp3">
+    <source src="./sounds/bgm.ogg">
   </audio>
 </head>
 
 <body>
+  <div class="canvas-wrapper">
+  <canvas id="background" width="1200" height="675"></canvas>
   <canvas id="field" width="300" height="600"></canvas>
+  <canvas id="next" width="150" height="150"></canvas>
+  <canvas id="score" width="200" height="300"></canvas>
+  <canvas id="button" width="500" height="150"></canvas>
+  <canvas id="UI" width="1200" height="675"></canvas>
+  </div>
   <div id="showscore">score: 0</div>
   <div id="showhighscore">highscore: 0</div>
   <div id="showlevel">level: 0</div>
   <div>A,Dで回転，左右矢印キーで移動，下矢印キーで落下</div>
+  <script type="text/javascript" src="./scripts/canvas.js"></script>
   <script type="text/javascript" src="./scripts/mino.js"></script>
   <script type="text/javascript" src="./scripts/main.js"></script>
 </body>

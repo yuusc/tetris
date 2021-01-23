@@ -24,7 +24,7 @@ function init() {
 
 function draw() {
     const chara = new Image();
-  chara.src = "/image/backgroundimg.jpg";  // 画像のURLを指定
+  chara.src = "./image/backgroundimg.jpg";  // 画像のURLを指定
   chara.onload = () => {
     bgctx.drawImage(chara, 0, 0);
   };

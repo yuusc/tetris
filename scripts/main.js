@@ -2,7 +2,7 @@ var fieldw = 300, fieldh = 600;
 var nextareaw = 150, nextareah = 150;
 var cols = 10, rows = 20;
 var ncols = 5, nrows = 5;
-
+var firstspeed=500;
 var blockw = fieldw / cols, blockh = fieldh / rows;
 fieldcv = document.getElementById("field");
 fieldcv.style.position = "absolute";
@@ -38,7 +38,18 @@ var leveluptf = false;
 var interval = true;
 var SEfix, SEclearrow, SEmove,SErotate,SElevelup,SEgameover;
 var lastlv=1;
+var highscore = 0;
+var speed = 500;
+var score = 0;
+var clearlinenum = 0;
+var showscore = document.getElementById('showscore');
+var showhighscore = document.getElementById('showhighscore');
+var showlevel = document.getElementById('showlevel');
+var nowplaying = 1;
+var newrecord = 0;
 
+
+function setup(){
 for (var y = 0; y < rows; y++) {
   field[y] = [];
   for (var x = 0; x < cols; x++) {
@@ -53,7 +64,7 @@ for (var y = 0; y < nrows; y++) {
   }
 }
 
-var highscore = 0;
+
 
 if (typeOf.call(getCookieValue('highscore')) == "number") {
   highscore = getCookieValue('highscore');
@@ -66,13 +77,10 @@ current_mino = newMino();
 post_mino = newnextmino();
 render();
 shownextmino();
-var score = 0;
-var clearlinenum = 0;
-var showscore = document.getElementById('showscore');
-var showhighscore = document.getElementById('showhighscore');
-var showlevel = document.getElementById('showlevel');
-var speed = 500 - level * 20;
+
+speed = firstspeed - (level-1) * 20;
 startgame();
+}
 
 function startgame() {
   displayscore();
@@ -180,6 +188,7 @@ function drawnextBlock(x, y, block) {
 }
 
 function tick() {
+  if (nowplaying == 2){
   if (canMove(0, 1)) {
     current_y++;
   } else {
@@ -195,7 +204,7 @@ function tick() {
     if (score != 0) {
       level = 1 + Math.floor(clearlinenum / 3);
       if (level < 25) {
-        speed = 500 - level * 20;
+        speed = firstspeed - level * 20;
       } else {
         speed = 10
       }
@@ -209,7 +218,8 @@ function tick() {
   render();
   clearInterval(play);
   console.log("speed: " + speed);
-  play = setInterval(tick, speed);
+  startgame();
+}
 }
 
 function fix() {
@@ -324,14 +334,46 @@ function gameover() {
 }
 
 function result() {
-  if (score >= highscore) {
+  nowplaying++;
+  document.getElementById("bgm").pause();
+  document.getElementById("result").play()
+  clearInterval(play);
+  stopgame();
+  if (score > highscore) {
     document.cookie = `highscore = ${score}; max-age = 15552000; secure`;
     console.log("new record: " + score);
+    newrecord = 1;
   } else {
     document.cookie = `highscore = ${highscore}; max-age = 15552000; secure`;
     console.log("score: " + score);
   }
   console.log(getCookieValue('highscore'));
-  alert("score: " + score);
-  location.reload();
+  darkctx.fillStyle = "rgba(" + [0, 0, 0, 0.7] + ")";
+    darkctx.fillRect(0, 0, darkcanvas.width, darkcanvas.height);
+    btnctx.fillStyle = "rgba(" + [255, 255, 255, 0.9] + ")";
+    btnctx.fillRect(450,300,300,60);
+    btnctx.font = '30pt Arial';
+    btnctx.fillStyle = "white";
+    btnctx.fillText("SCORE: "+score, 510, 240);
+    if (newrecord == 1){
+      btnctx.fillStyle = "red";
+      btnctx.fillText("NEW RECORD!", 490, 180);
+    }
+    btnctx.fillStyle = "black";
+    btnctx.fillText("REPLAY", 510, 340);
+    btncanvas.addEventListener('click', onClickresult,false);
+}
+function onClickresult(e){
+    var rect = e.target.getBoundingClientRect();
+    x = e.clientX - rect.left;
+    y = e.clientY - rect.top;
+    restart();
+}
+
+function restart(){
+    if (nowplaying == 3){
+    if(x>=450 && x<=750 && y>=300 && y<= 360){
+        location.reload();
+    }else{}
+}
 }

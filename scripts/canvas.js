@@ -16,7 +16,7 @@ var x = 0;
 var y = 0;
 var bx = 0;
 var by = 0;
-
+var easy = false;
 
 function init() {
     bgcanvas = document.getElementById("background");
@@ -70,6 +70,8 @@ function draw() {
 }
 
 window.onload = function () {
+    no_scaling();
+    mobile_no_scroll();
     init();
 };
 
@@ -90,6 +92,7 @@ function pressstart(){
     if (x>=450 && x<=750 && y>=200 && y<= 260){
         firstspeed = 750;
         nowplaying++;
+        easy = true;
         countdown();
     }else if(x>=450 && x<=750 && y>=300 && y<= 360){
         firstspeed = 500;

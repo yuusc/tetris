@@ -138,7 +138,6 @@ function* randomGenerator() {
             [bag[k], bag[i - 1]] = [bag[i - 1], bag[k]];
         }
     }
-//        console.log(bag);
         num = bag[0];
         bag.shift();
         yield num;

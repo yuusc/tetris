@@ -202,11 +202,19 @@ function tick() {
     console.log("clearlinenum" + clearlinenum);
     if (score != 0) {
       level = 1 + Math.floor(clearlinenum / 3);
+      if (easy == false){
       if (level < 25) {
         speed = firstspeed - level * 20;
       } else {
         speed = 10
       }
+    }else if (easy == true){
+      if (level < 37) {
+        speed = firstspeed - level * 20;
+      } else {
+        speed = 10
+      }
+    }
       if(lastlv<level){
         PlaySElevelup();
       }
@@ -380,3 +388,14 @@ function restart(){
 }
 }
 
+function no_scaling() {
+    document.addEventListener("touchmove", mobile_no_scroll, { passive: false });
+}
+
+function mobile_no_scroll(event) {
+    // ２本指での操作の場合
+    if (event.touches.length >= 2) {
+        // デフォルトの動作をさせない
+        event.preventDefault();
+    }
+}

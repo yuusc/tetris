@@ -70,8 +70,6 @@ function draw() {
 }
 
 window.onload = function () {
-    no_scaling();
-    mobile_no_scroll();
     init();
 };
 

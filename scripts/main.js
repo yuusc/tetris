@@ -388,14 +388,11 @@ function restart(){
 }
 }
 
-function no_scaling() {
-    document.addEventListener("touchmove", mobile_no_scroll, { passive: false });
-}
-
-function mobile_no_scroll(event) {
-    // ２本指での操作の場合
-    if (event.touches.length >= 2) {
-        // デフォルトの動作をさせない
-        event.preventDefault();
-    }
-}
+let lastTouch = 0;
+document.addEventListener('touchend', event => {
+  const now = window.performance.now();
+  if (now - lastTouch <= 300) {
+    event.preventDefault();
+  }
+  lastTouch = now;
+}, true);

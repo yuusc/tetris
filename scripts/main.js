@@ -387,12 +387,3 @@ function restart(){
     }else{}
 }
 }
-
-let lastTouch = 0;
-document.addEventListener('touchend', event => {
-  const now = window.performance.now();
-  if (now - lastTouch <= 300) {
-    event.preventDefault();
-  }
-  lastTouch = now;
-}, true);

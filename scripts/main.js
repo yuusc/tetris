@@ -64,15 +64,15 @@ function setup() {
       nextarea[y][x] = 0;
     }
   }
-  
-  if (typeOf.call(parseInt(getCookieValue('highscore'),10)) == "number") {
-    highscore = parseInt(getCookieValue('highscore'),10);
+
+  if (typeOf.call(parseInt(getCookieValue('highscore'), 10)) == "number") {
+    highscore = parseInt(getCookieValue('highscore'), 10);
     console.log("typeOf.call(getCookieValue('highscore')) == number  true");
     console.log(highscore);
   } else {
-    highscore = parseInt(localStorage.getItem('highscore'),10);
-    console.log("isNaN: "+Number.isNaN(highscore));
-    if (Number.isNaN(highscore)==true) {
+    highscore = parseInt(localStorage.getItem('highscore'), 10);
+    console.log("isNaN: " + Number.isNaN(highscore));
+    if (Number.isNaN(highscore) == true) {
       localStorage.removeItem('highscore');
       highscore = 0;
     }
@@ -366,8 +366,8 @@ function result() {
     localStorage.setItem('highscore', `${highscore}`);
     console.log("score: " + score);
   }
-  console.log("cookie: "+document.cookie);
-  console.log("cookie highscore: "+getCookieValue('highscore'));
+  console.log("cookie: " + document.cookie);
+  console.log("cookie highscore: " + getCookieValue('highscore'));
   darkctx.fillStyle = "rgba(" + [0, 0, 0, 0.7] + ")";
   darkctx.fillRect(0, 0, darkcanvas.width, darkcanvas.height);
   btnctx.fillStyle = "rgba(" + [255, 255, 255, 0.9] + ")";

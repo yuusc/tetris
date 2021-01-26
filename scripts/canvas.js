@@ -66,6 +66,7 @@ function draw() {
     btnctx.fillText("NORMAL", 510, 340);
     btnctx.fillStyle="white";
     btnctx.fillText("A,Dで回転，左右矢印キーで移動，下矢印キーで落下", 170, 500);
+    btnctx.fillText("音が出ます", 500, 580);
     clicklistener();
 }
 
@@ -138,6 +139,11 @@ function smpui(){
     smpctx.fillText("▼", 590, 95);
     smpctx.fillText("▶", 700, 95);
     smpctx.fillText("⟳", 830, 95);
+    smpctx.font = '20pt Arial';
+    smpctx.fillStyle = "white";
+    smpctx.fillText("A,Dで回転", 30, 35);
+    smpctx.fillText("左右矢印キーで移動",30,85);
+    smpctx.fillText("下矢印キーで落下",30,135);
     smpcanvas.addEventListener('click', onClickbutton,false);
 }
 function onClickbutton(be){

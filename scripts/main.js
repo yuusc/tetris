@@ -65,7 +65,7 @@ function setup() {
     }
   }
   
-  if (parseInt(typeOf.call(getCookieValue('highscore')),10) == "number") {
+  if (typeOf.call(parseInt(getCookieValue('highscore'),10)) == "number") {
     highscore = parseInt(getCookieValue('highscore'),10);
     console.log("typeOf.call(getCookieValue('highscore')) == number  true");
     console.log(highscore);

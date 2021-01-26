@@ -2,7 +2,7 @@ var fieldw = 300, fieldh = 600;
 var nextareaw = 150, nextareah = 150;
 var cols = 10, rows = 20;
 var ncols = 5, nrows = 5;
-var firstspeed=500;
+var firstspeed = 500;
 var blockw = fieldw / cols, blockh = fieldh / rows;
 fieldcv = document.getElementById("field");
 fieldcv.style.position = "absolute";
@@ -36,8 +36,8 @@ var level = 1;
 var canlevelup = true;
 var leveluptf = false;
 var interval = true;
-var SEfix, SEclearrow, SEmove,SErotate,SElevelup,SEgameover;
-var lastlv=1;
+var SEfix, SEclearrow, SEmove, SErotate, SElevelup, SEgameover;
+var lastlv = 1;
 var highscore;
 var speed = 500;
 var score = 0;
@@ -47,38 +47,45 @@ var showhighscore = document.getElementById('showhighscore');
 var showlevel = document.getElementById('showlevel');
 var nowplaying = 1;
 var newrecord = 0;
-var nfill=true;
+var nfill = true;
 
 
-function setup(){
-for (var y = 0; y < rows; y++) {
-  field[y] = [];
-  for (var x = 0; x < cols; x++) {
-    field[y][x] = 0;
+function setup() {
+  for (var y = 0; y < rows; y++) {
+    field[y] = [];
+    for (var x = 0; x < cols; x++) {
+      field[y][x] = 0;
+    }
   }
-}
 
-for (var y = 0; y < nrows; y++) {
-  nextarea[y] = [];
-  for (var x = 0; x < ncols; x++) {
-    nextarea[y][x] = 0;
+  for (var y = 0; y < nrows; y++) {
+    nextarea[y] = [];
+    for (var x = 0; x < ncols; x++) {
+      nextarea[y][x] = 0;
+    }
   }
-}
+  
+  if (typeOf.call(getCookieValue('highscore')) == "number") {
+    highscore = getCookieValue('highscore');
+    console.log("typeOf.call(getCookieValue('highscore')) == number  true");
+    console.log(highscore);
+  } else {
+    highscore = parseInt(localStorage.getItem('highscore'),10);
+    console.log("isNaN: "+Number.isNaN(highscore));
+    if (Number.isNaN(highscore)==true) {
+      localStorage.removeItem('highscore');
+      highscore = 0;
+    }
+  }
 
-if (typeOf.call(getCookieValue('highscore')) == "number") {
-  highscore = getCookieValue('highscore');
-  console.log(highscore);
-} else {
-  highscore = 0;
-}
-console.log("highscore: " + highscore);
-current_mino = newMino();
-post_mino = newnextmino();
-render();
-shownextmino();
+  console.log("highscore: " + highscore);
+  current_mino = newMino();
+  post_mino = newnextmino();
+  render();
+  shownextmino();
 
-speed = firstspeed - (level-1) * 20;
-startgame();
+  speed = firstspeed - (level - 1) * 20;
+  startgame();
 }
 
 function startgame() {
@@ -131,7 +138,7 @@ function typeOf() {
 }
 
 function displayscore() {
-  scrctx.clearRect(0,0,scorecanvas.width,scorecanvas.height)
+  scrctx.clearRect(0, 0, scorecanvas.width, scorecanvas.height)
   scrctx.fillText(`SCORE: ${score}`, 15, 80);
   scrctx.fillText(`HIGH SCORE:`, 15, 130);
   scrctx.fillText(highscore, 60, 160);
@@ -187,49 +194,49 @@ function drawnextBlock(x, y, block) {
 }
 
 function tick() {
-  if (nowplaying == 2){
-  if (canMove(0, 1)) {
-    current_y++;
-  } else {
-    fix();
-    clearrows();
-    gameover();
-    current_mino = newMino();
-    post_mino = newnextmino();
-    shownextmino();
-    current_x = 3;
-    current_y = 0;
-    console.log("clearlinenum" + clearlinenum);
-    if (score != 0) {
-      level = 1 + Math.floor(clearlinenum / 3);
-      if (easy == false){
-      if (level < 25) {
-        speed = firstspeed - level * 20;
-      } else {
-        speed = 10
+  if (nowplaying == 2) {
+    if (canMove(0, 1)) {
+      current_y++;
+    } else {
+      fix();
+      clearrows();
+      gameover();
+      current_mino = newMino();
+      post_mino = newnextmino();
+      shownextmino();
+      current_x = 3;
+      current_y = 0;
+      console.log("clearlinenum" + clearlinenum);
+      if (score != 0) {
+        level = 1 + Math.floor(clearlinenum / 3);
+        if (easy == false) {
+          if (level < 25) {
+            speed = firstspeed - level * 20;
+          } else {
+            speed = 10
+          }
+        } else if (easy == true) {
+          if (level < 37) {
+            speed = firstspeed - level * 20;
+          } else {
+            speed = 10
+          }
+        }
+        if (lastlv < level) {
+          PlaySElevelup();
+        }
       }
-    }else if (easy == true){
-      if (level < 37) {
-        speed = firstspeed - level * 20;
-      } else {
-        speed = 10
-      }
+      lastlv = level;
+      displayscore();
     }
-      if(lastlv<level){
-        PlaySElevelup();
-      }
+    render();
+    if (!nfill) {
+      nowplaying++;
     }
-    lastlv=level;
-    displayscore();
+    clearInterval(play);
+    console.log("speed: " + speed);
+    startgame();
   }
-  render();
-  if (!nfill){
-    nowplaying++;
-  }
-  clearInterval(play);
-  console.log("speed: " + speed);
-  startgame();
-}
 }
 
 function fix() {
@@ -351,39 +358,42 @@ function result() {
   stopgame();
   if (score > highscore) {
     document.cookie = `highscore = ${score}; max-age = 15552000; secure`;
+    localStorage.setItem('highscore', `${score}`);
     console.log("new record: " + score);
     newrecord = 1;
   } else {
     document.cookie = `highscore = ${highscore}; max-age = 15552000; secure`;
+    localStorage.setItem('highscore', `${highscore}`);
     console.log("score: " + score);
   }
-  console.log(getCookieValue('highscore'));
+  console.log("cookie: "+document.cookie);
+  console.log("cookie highscore: "+getCookieValue('highscore'));
   darkctx.fillStyle = "rgba(" + [0, 0, 0, 0.7] + ")";
-    darkctx.fillRect(0, 0, darkcanvas.width, darkcanvas.height);
-    btnctx.fillStyle = "rgba(" + [255, 255, 255, 0.9] + ")";
-    btnctx.fillRect(450,300,300,60);
-    btnctx.font = '30pt Arial';
-    btnctx.fillStyle = "white";
-    btnctx.fillText("SCORE: "+score, 510, 240);
-    if (newrecord == 1){
-      btnctx.fillStyle = "red";
-      btnctx.fillText("NEW RECORD!", 490, 180);
-    }
-    btnctx.fillStyle = "black";
-    btnctx.fillText("REPLAY", 510, 340);
-    btncanvas.addEventListener('click', onClickresult,false);
+  darkctx.fillRect(0, 0, darkcanvas.width, darkcanvas.height);
+  btnctx.fillStyle = "rgba(" + [255, 255, 255, 0.9] + ")";
+  btnctx.fillRect(450, 300, 300, 60);
+  btnctx.font = '30pt Arial';
+  btnctx.fillStyle = "white";
+  btnctx.fillText("SCORE: " + score, 510, 240);
+  if (newrecord == 1) {
+    btnctx.fillStyle = "red";
+    btnctx.fillText("NEW RECORD!", 490, 180);
+  }
+  btnctx.fillStyle = "black";
+  btnctx.fillText("REPLAY", 510, 340);
+  btncanvas.addEventListener('click', onClickresult, false);
 }
-function onClickresult(e){
-    var rect = e.target.getBoundingClientRect();
-    x = e.clientX - rect.left;
-    y = e.clientY - rect.top;
-    restart();
+function onClickresult(e) {
+  var rect = e.target.getBoundingClientRect();
+  x = e.clientX - rect.left;
+  y = e.clientY - rect.top;
+  restart();
 }
 
-function restart(){
-    if (nowplaying == 3){
-    if(x>=450 && x<=750 && y>=300 && y<= 360){
-        location.reload();
-    }else{}
-}
+function restart() {
+  if (nowplaying == 3) {
+    if (x >= 450 && x <= 750 && y >= 300 && y <= 360) {
+      location.reload();
+    } else { }
+  }
 }

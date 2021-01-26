@@ -109,8 +109,6 @@ function countdown(){
     darkctx.fillStyle = "red";
     darkctx.fillText("READY?", 520, 300);
     PlaySEcount();
-    highscore = getCookieValue('highscore');
-    console.log(highscore);
     setTimeout(count,3000);
 }
 

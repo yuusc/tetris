@@ -1,17 +1,4 @@
-var bgcanvas;
-var bgctx;
-var fieldcv;
-var fdctx;
-var nxtcanvas;
-var nxtctx;
-var scorecanvas;
-var scrctx;
-var darkcanvas;
-var darkctx;
-var btncanvas;
-var btnctx;
-var smpcanvas;
-var smpctx;
+var bgcanvas,bgctx,fieldcv,fdctx,nxtcanvas,nxtctx,scorecanvas,scrctx,darkcanvas,darkctx,btncanvas,btnctx,smpcanvas,smpctx;
 var x = 0;
 var y = 0;
 var bx = 0;

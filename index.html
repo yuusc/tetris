@@ -2,177 +2,39 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Tetris</title>
-  <style type="text/css">
-    #field {
-      border: solid 2px #ffffff;
-      background-image:
-        repeating-linear-gradient(90deg,
-          rgba(255, 255, 255, 0.6),
-          rgba(255, 255, 255, 0.6)0 1px,
-          transparent 1px,
-          transparent 30px),
-        repeating-linear-gradient(0deg,
-          rgba(255, 255, 255, 0.6),
-          rgba(255, 255, 255, 0.6)0 1px,
-          #000 1px,
-          #000 30px);
-    }
-
-    #next {
-      border: solid 2px #ffffff;
-      background-color: black;
-    }
-
-    #score {
-      border: solid 2px #ffffff;
-      background-color: black;
-    }
-
-    #smartphone {
-      border: solid 2px #ffffff;
-      background-color: black;
-    }
-
-    .flash {
-      animation: flash .03s infinite;
-    }
-
-    @keyframes flash {
-      0% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: .8;
-      }
-    }
-
-    .skew {
-      animation: skew 3s infinite;
-    }
-
-    @keyframes skew {
-      0% {
-        transform: none;
-      }
-
-      33% {
-        transform: none;
-      }
-
-      33.3% {
-        transform: skewX(30deg);
-      }
-
-      33.6% {
-        transform: skewX(-30deg);
-      }
-
-      33.9% {
-        transform: none;
-      }
-
-      66% {
-        transform: none;
-      }
-
-      66.3% {
-        transform: skewX(5deg);
-      }
-
-      66.6% {
-        transform: skewX(-5deg);
-      }
-
-      66.9% {
-        transform: none;
-      }
-
-      77% {
-        transform: none;
-      }
-
-      77.3% {
-        transform: skewX(15deg);
-      }
-
-      77.6% {
-        transform: skewX(-15deg);
-      }
-
-      77.9% {
-        transform: none;
-      }
-    }
-
-    .glitch {
-      animation: glitch .3s both infinite;
-    }
-
-    @keyframes glitch {
-      0% {
-        transform: translate(0);
-      }
-
-      12.5% {
-        transform: translate(-1px, 1px);
-      }
-
-      37.5% {
-        transform: translate(-1px, -1px);
-      }
-
-      62.5% {
-        transform: translate(1px, 1px);
-      }
-
-      87.5% {
-        transform: translate(1px, -1px);
-      }
-
-      100% {
-        transform: translate(0);
-      }
-    }
-    .pos{
-      position:relative;
-			top: 850px;
-			left:550px;
-    }
-  </style>
-  <audio id="bgm" preload="auto" loop>
+    <meta charset="UTF-8">
+    <title>Tetris</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <audio id="bgm" preload="auto" loop>
     <source src="./sounds/bgm.mp3">
     <source src="./sounds/bgm.ogg">
     <source src="./sounds/bgm.m4a">
   </audio>
-  <audio id="result" preload="auto" loop>
+    <audio id="result" preload="auto" loop>
     <source src="./sounds/resultbgm.mp3">
   </audio>
 </head>
 
 <body>
-
-  <canvas id="background" width="1200" height="675"></canvas>
-  <canvas id="field" width="300" height="600"></canvas>
-  <canvas id="next" width="150" height="150"></canvas>
-  <canvas id="score" width="200" height="300"></canvas>
-  <canvas id="dark" width="1200" height="675"></canvas>
-  <canvas id="button" width="1200" height="675"></canvas>
-  <canvas id="smartphone" width="1200" height="150"></canvas>
-  <script type="text/javascript" src="./scripts/canvas.js"></script>
-  <script type="text/javascript" src="./scripts/mino.js"></script>
-  <script type="text/javascript" src="./scripts/main.js"></script>
-  <div class="flash">
-    <div class="skew">
-      <div class="glitch">
-        <div class="pos">
-        <a href="https://github.com/yuusc/tetris">githubはこちら</a>
+    <canvas id="background" width="1200" height="675"></canvas>
+    <canvas id="field" width="300" height="600"></canvas>
+    <canvas id="next" width="150" height="150"></canvas>
+    <canvas id="score" width="200" height="300"></canvas>
+    <canvas id="dark" width="1200" height="675"></canvas>
+    <canvas id="button" width="1200" height="675"></canvas>
+    <canvas id="smartphone" width="1200" height="150"></canvas>
+    <script type="text/javascript" src="./scripts/canvas.js"></script>
+    <script type="text/javascript" src="./scripts/mino.js"></script>
+    <script type="text/javascript" src="./scripts/main.js"></script>
+    <div class="flash">
+        <div class="skew">
+            <div class="glitch">
+                <div class="pos">
+                    <a href="https://github.com/yuusc/tetris">githubはこちら</a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </body>
 
 </html>

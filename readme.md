@@ -1,7 +1,5 @@
 # TETRIS
 
-**コンテンツ表現工学　3班　グループワーク**
-
 このプログラムはHTML，CSS，JavaScriptを使用しております．
 HTML5のCanvasを7枚重ね，JavaScriptで制御を行います．
 
